@@ -254,9 +254,9 @@
 	.orga $C9CA;3C9CA
 	JSR MAPPER165CHRHI2	;STA  MMC4CHRHI2
 	.orga $C9D2;3C9D2
-	JSR MAPPER165MIRROR	;STA  MMC4MIRROR
+	STA  MMC3MIRROR
 	.orga $C9DA;3C9DA
-	JSR MAPPER165MIRROR	;STA  MMC4MIRROR
+	STA  MMC3MIRROR
 
 	.orga $CF28;3CF28
 	JSR MAPPER165CHRHI1	;STA  MMC4CHRHI1
@@ -284,7 +284,7 @@
 	.orga $E736;3E736
 	JSR MAPPER165BANK	;STA MMC3BANKDATA
 
-   .orga $FA00
+   .orga $F500
 MAPPER165BANK:
 	PHA                      
 	ASL A                    
@@ -339,44 +339,41 @@ MAPPER165BANK:
   ; STA MMC3BANKDATA               
   ; PLA                      
   ; RTS           
-	.orga $FA60	
-MAPPER165_FA60:
-  PHA                      
-  ASL A                    
-  ASL A                    
-  PHA                      
-  LDA #$02                 
-  STA MMC3BANKSEL                
-  PLA                      
-  STA MMC3BANKDATA               
-  CLC                      
-  ADC #$01                 
-  PHA                      
-  LDA #$03                 
-  STA MMC3BANKSEL                
-  PLA                      
-  STA MMC3BANKDATA               
-  CLC                      
-  ADC #$01                 
-  PHA                      
-  LDA #$04                 
-  STA MMC3BANKSEL                
-  PLA                      
-  STA MMC3BANKDATA               
-  CLC                      
-  ADC #$01                 
-  PHA                      
-  LDA #$05                 
-  STA MMC3BANKSEL                
-  PLA                      
-  STA MMC3BANKDATA               
-  PLA                      
-  RTS                  
+	; .orga $FA60	
+; MAPPER165_FA60:
+  ; PHA                      
+  ; ASL A                    
+  ; ASL A                    
+  ; PHA                      
+  ; LDA #$02                 
+  ; STA MMC3BANKSEL                
+  ; PLA                      
+  ; STA MMC3BANKDATA               
+  ; CLC                      
+  ; ADC #$01                 
+  ; PHA                      
+  ; LDA #$03                 
+  ; STA MMC3BANKSEL                
+  ; PLA                      
+  ; STA MMC3BANKDATA               
+  ; CLC                      
+  ; ADC #$01                 
+  ; PHA                      
+  ; LDA #$04                 
+  ; STA MMC3BANKSEL                
+  ; PLA                      
+  ; STA MMC3BANKDATA               
+  ; CLC                      
+  ; ADC #$01                 
+  ; PHA                      
+  ; LDA #$05                 
+  ; STA MMC3BANKSEL                
+  ; PLA                      
+  ; STA MMC3BANKDATA               
+  ; PLA                      
+  ; RTS                  
 
-	.orga $FAA0	
-MAPPER165MIRROR:
-  STA MMC3MIRROR               
-  RTS                      
+  
   .orga $FAB0	
 RESET:
   LDA #$FF                 
@@ -396,16 +393,15 @@ RESET:
   JMP $C075    
 
   
-	.orga $FAE0	
-MAPPER165FAE0:
-  STA $03F8                
-  STA PPUADDR         
-  RTS                      
-	.orga $FAF0
-MAPPER165FAF0:
-  STA $03F9                
-  STA PPUADDR         
-  RTS                      
+
+; MAPPER165FAE0:
+  ; STA $03F8                
+  ; STA PPUADDR         
+  ; RTS          
+; MAPPER165FAF0:
+  ; STA $03F9                
+  ; STA PPUADDR         
+  ; RTS                      
 
 
   
@@ -413,7 +409,52 @@ MMC3_F524:
   STX $8000                
   STY $8001                
   RTS   
+
+.orga $F530
+MAPPER165CHRHI2:            
+  PHA                      
+  TXA                      
+  PHA                      
+  TYA                      
+  PHA                      
+  TSX                      
+  LDA $0103,X              
+  NOP
+  ASL A                    
+  ASL A                    
+  TAY                      
+  LDX #$04                 
+  JSR MMC3_F524               
+  PLA                      
+  TAY                      
+  PLA                      
+  TAX                      
+  PLA                      
+  RTS  
   
+.orga $F550 
+MAPPER165CHRHI1:            
+  PHA                      
+  TXA                      
+  PHA                      
+  TYA                      
+  PHA                      
+  TSX                      
+  LDA $0103,X  
+  NOP  
+  ASL A                    
+  ASL A                    
+  TAY                      
+  LDX #$02                 
+  JSR MMC3_F524               
+  PLA                      
+  TAY                      
+  PLA                      
+  TAX                      
+  PLA                      
+  RTS 
+  
+.orga $F570	
 MAPPER165CHRLO1:
   PHA                      
   TXA                      
@@ -456,47 +497,8 @@ MAPPER165CHRLO2:
   PLA                      
   RTS  
 
-MAPPER165CHRHI1:            
-  PHA                      
-  TXA                      
-  PHA                      
-  TYA                      
-  PHA                      
-  TSX                      
-  LDA $0103,X  
-  NOP  
-  ASL A                    
-  ASL A                    
-  TAY                      
-  LDX #$02                 
-  JSR MMC3_F524               
-  PLA                      
-  TAY                      
-  PLA                      
-  TAX                      
-  PLA                      
-  RTS 
 
-MAPPER165CHRHI2:            
-  PHA                      
-  TXA                      
-  PHA                      
-  TYA                      
-  PHA                      
-  TSX                      
-  LDA $0103,X              
-  NOP
-  ASL A                    
-  ASL A                    
-  TAY                      
-  LDX #$04                 
-  JSR MMC3_F524               
-  PLA                      
-  TAY                      
-  PLA                      
-  TAX                      
-  PLA                      
-  RTS                      
+                    
 
 
 .orga $FFFC
