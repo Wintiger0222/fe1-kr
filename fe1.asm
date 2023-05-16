@@ -375,10 +375,7 @@ MAPPER165BANK:
 
   
   .orga $FAB0	
-RESET:
-  LDA #$FF                 
-  STA $A000                
-  STA $A001                
+RESET:                
   LDA #$00                 
   STA $C000                
   STA $E000                
@@ -389,7 +386,11 @@ RESET:
   LDA #$07                 
   STA MMC3BANKSEL                
   LDA #$1B                 
-  STA MMC3BANKDATA               
+  STA MMC3BANKDATA
+  LDA #$FF                 
+  STA $A000                
+  LDA #$80  
+  STA $A001               
   JMP $C075    
 
   
