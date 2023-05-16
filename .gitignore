@@ -1,0 +1,4 @@
+*.nes
+*.o
+*.sym
+nflate.exe
