@@ -52,22 +52,24 @@
     BASE_BANK 12
     BASE_BANK 13
     BASE_BANK 14
-    BASE_BANK 15
-    BASE_BANK 16
-    BASE_BANK 17
-    BASE_BANK 18
-    BASE_BANK 19
-    BASE_BANK 20
-    BASE_BANK 21
-    BASE_BANK 22
-    BASE_BANK 23
-    BASE_BANK 24
-    BASE_BANK 25
-    BASE_BANK 26
-    BASE_BANK 27
-    BASE_BANK 28
-    BASE_BANK 29
-    BASE_BANK 30
+
+    BASE_BANK 15;expanded area
+    BASE_BANK 16;expanded area
+    BASE_BANK 17;expanded area
+    BASE_BANK 18;expanded area
+    BASE_BANK 19;expanded area
+    BASE_BANK 20;expanded area
+    BASE_BANK 21;expanded area
+    BASE_BANK 22;expanded area
+    BASE_BANK 23;expanded area
+    BASE_BANK 24;expanded area
+    BASE_BANK 25;expanded area
+    BASE_BANK 26;expanded area
+    BASE_BANK 27;expanded area
+    BASE_BANK 28;expanded area
+    BASE_BANK 29;expanded area
+    BASE_BANK 30;expanded area
+
     BASE_BANK 31
 
     ; CHR banks
@@ -104,197 +106,33 @@
     BASE_BANK 62
     BASE_BANK 63
 
-    ; DISASSEMBLED DATA
+    .include "banksel_hijack.asm"
 
-  
+  .bank 6 slot "ROM-LO"
+  	.orga $B366
+    ;  STA $7FEE,X  //cause bug(why this is exist?)
+    NOP
+    NOP
+    NOP
 
-    .bank 5 slot "ROM-LO"
-	.orga $810E;1410E
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	.orga $8113;14113
-	JSR MAPPER165CHRLO2	;STA  MMC4CHRLO2
-   
-	.orga $85E9;145E9
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	JSR MAPPER165CHRLO2	;STA  MMC4CHRLO2
-	
-	.orga $880E;1480E
-	JSR MAPPER165CHRHI1	;STA  MMC4CHRHI1
-	JSR MAPPER165CHRHI2	;STA  MMC4CHRHI2
-   
-	.orga $8D25;14D25
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	JSR MAPPER165CHRLO2	;STA  MMC4CHRLO2
-	
-	.orga $962F;1562F
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	.orga $A2F8;162F8
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	.orga $A382;16382
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	.orga $A3D6;163D6
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1	
-	.orga $A413;16413
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	.orga $A527;16527
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	.orga $A584;16584
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	.orga $A642;16642
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	.orga $A6DE;166DE
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	.orga $A77E;1677E
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	.orga $A807;16807
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	.orga $A86E;1686E
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	.orga $A890;16890
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	.orga $A911;16911
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	.orga $A962;16962
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	.orga $A9A1;169A1
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	.orga $A9F1;169F1
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	.orga $AA64;16A64
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	.orga $AAD1;16AD1
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	.orga $AB16;16B16
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	.orga $AB69;16B69
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	.orga $ACB6;16CB6
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-
-    .bank 7 slot "ROM-LO"
-	.orga $AC35;1EC35
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	JSR MAPPER165CHRLO2	;STA  MMC4CHRLO2
-	JSR MAPPER165CHRHI1	;STA  MMC4CHRHI1
-	JSR MAPPER165CHRHI2	;STA  MMC4CHRHI2
-
-    .bank 11 slot "ROM-LO"
-	.orga $9BF2;2DBF2
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	JSR MAPPER165CHRLO2	;STA  MMC4CHRLO2
-	JSR MAPPER165CHRHI1	;STA  MMC4CHRHI1
-	JSR MAPPER165CHRHI2	;STA  MMC4CHRHI2
-
-	.orga $9EB9;2DEAE
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	JSR MAPPER165CHRLO2	;STA  MMC4CHRLO2
-	JSR MAPPER165CHRHI1	;STA  MMC4CHRHI1
-	JSR MAPPER165CHRHI2	;STA  MMC4CHRHI2
+  .bank 15 slot "ROM-LO"
+  	.orga $8000
+FONT_2BPP:
+	.incbin "font.bin"
 
 
-	
-	
-    .bank 13 slot "ROM-LO"
-	.orga $8036;34036
-	JSR MAPPER165CHRHI1	;STA  MMC4CHRHI1
-	JSR MAPPER165CHRHI2	;STA  MMC4CHRHI2
-	
-	.orga $83AB;343AB
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	JSR MAPPER165CHRLO2	;STA  MMC4CHRLO2
-	
-	;2006 생략
-	.bank 14 slot "ROM-LO"
-	.orga $AE56;3AE56
-	;db fe -> fa(tile?)
-
-	; bank 15 slot "ROM-LO"
-
-	
-	
-	.bank 31 slot "ROM-HI"
-	.orga $C108;3C108
-	;sta $4023
-	;db $a9
-	;db $03
-    ;sta $4023
-	;db $a9
-	;db $e8
-    ;sta $408A
-	;db $a9
-	;db $80
-	;sta $4080
-	
-	.orga $C1b7;3C1b7
-	JSR MAPPER165CHRHI1	;STA  MMC4CHRHI1
-	JSR MAPPER165CHRHI2	;STA  MMC4CHRHI2
-	.orga $C1F2;3C1F2
-	JSR MAPPER165CHRHI1	;STA  MMC4CHRHI1
-	.orga $C1F7;3C1F7
-	JSR MAPPER165CHRHI2	;STA  MMC4CHRHI2
-	.orga $C1FD;3C1FD
-	JSR MAPPER165BANK	;STA MMC3BANKDATA
-	.orga $C205;3C1FD
-	JSR MAPPER165BANK	;STA MMC3BANKDATA
-
-
-;2006 생략	
-
-	.orga $C99F;3C99F
-	JSR MAPPER165BANK	;STA MMC3BANKDATA
-
-	.orga $C9AA;3C9AA
-	JSR MAPPER165BANK	;STA MMC3BANKDATA
-	.orga $C9B2;3C9B2
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	.orga $C9BA;3C9BA
-	JSR MAPPER165CHRLO2	;STA  MMC4CHRLO2
-	.orga $C9C2;3C9C2
-	JSR MAPPER165CHRHI1	;STA  MMC4CHRHI1
-	.orga $C9CA;3C9CA
-	JSR MAPPER165CHRHI2	;STA  MMC4CHRHI2
-	.orga $C9D2;3C9D2
-	STA  MMC3MIRROR
-	.orga $C9DA;3C9DA
-	STA  MMC3MIRROR
-
-	.orga $CF28;3CF28
-	JSR MAPPER165CHRHI1	;STA  MMC4CHRHI1
-	JSR MAPPER165CHRHI2	;STA  MMC4CHRHI2
-	
-;2006 생략	
-	.orga $E414;3E414
-	JSR MAPPER165CHRLO1	;STA  MMC4CHRLO1
-	.orga $E422;3E422
-	JSR MAPPER165BANK	;STA MMC3BANKDATA
-	.orga $E43E;3E43E
-	JSR MAPPER165BANK	;STA MMC3BANKDATA
-	
-	
-	.orga $E6A1;3E6A1
-	JSR MAPPER165BANK	;STA MMC3BANKDATA
-	.orga $E6AB;3E6AB
-	JSR MAPPER165BANK	;STA MMC3BANKDATA
-	.orga $E6BA;3E6BA
-	JSR MAPPER165BANK	;STA MMC3BANKDATA
-	.orga $E6F1;3E6F1
-	JSR MAPPER165BANK	;STA MMC3BANKDATA
-	.orga $E71D;3E71D
-	JSR MAPPER165BANK	;STA MMC3BANKDATA
-	.orga $E736;3E736
-	JSR MAPPER165BANK	;STA MMC3BANKDATA
-
+	.bank 31 slot "ROM-HI"	
    .orga $F500
 MAPPER165BANK:
 	PHA                      
 	ASL A                    
 	PHA                      
-	LDA #$06                 
+	LDA #BANKSEL.PRGLO                 
 	STA MMC3BANKSEL                
 	PLA                      
 	STA MMC3BANKDATA               
 	PHA                      
-	LDA #$07                 
+	LDA #BANKSEL.PGRHI                 
 	STA MMC3BANKSEL                
 	PLA                      
 	CLC                      
@@ -303,137 +141,112 @@ MAPPER165BANK:
 	PLA                      
 	RTS  
 
-   ; .orga $FA20	
-; MAPPER165CHRLO1: 
-  ; STA $03F0                
-  ; JMP MAPPER165_FA40                
-    ; .orga $FA28          
-; MAPPER165CHRLO2: 
-  ; STA $03F1                
-  ; JMP MAPPER165_FA40                
-    ; .orga $FA30
-; MAPPER165CHRHI1:
-  ; STA $03F2                
-  ; JMP MAPPER165_FA60                
-	; .orga $FA38
-; MAPPER165CHRHI2:
-  ; STA $03F3                
-  ; JMP MAPPER165_FA60                
-
-	; .orga $FA40
-; MAPPER165_FA40:
-  ; PHA                      
-  ; ASL A                    
-  ; ASL A                    
-  ; PHA                      
-  ; LDA #$00                 
-  ; STA MMC3BANKSEL                
-  ; PLA                      
-  ; STA MMC3BANKDATA               
-  ; CLC                      
-  ; ADC #$02                 
-  ; PHA                      
-  ; LDA #$01                 
-  ; STA MMC3BANKSEL                
-  ; PLA                      
-  ; STA MMC3BANKDATA               
-  ; PLA                      
-  ; RTS           
-	; .orga $FA60	
-; MAPPER165_FA60:
-  ; PHA                      
-  ; ASL A                    
-  ; ASL A                    
-  ; PHA                      
-  ; LDA #$02                 
-  ; STA MMC3BANKSEL                
-  ; PLA                      
-  ; STA MMC3BANKDATA               
-  ; CLC                      
-  ; ADC #$01                 
-  ; PHA                      
-  ; LDA #$03                 
-  ; STA MMC3BANKSEL                
-  ; PLA                      
-  ; STA MMC3BANKDATA               
-  ; CLC                      
-  ; ADC #$01                 
-  ; PHA                      
-  ; LDA #$04                 
-  ; STA MMC3BANKSEL                
-  ; PLA                      
-  ; STA MMC3BANKDATA               
-  ; CLC                      
-  ; ADC #$01                 
-  ; PHA                      
-  ; LDA #$05                 
-  ; STA MMC3BANKSEL                
-  ; PLA                      
-  ; STA MMC3BANKDATA               
-  ; PLA                      
-  ; RTS                  
-
-  
-  .orga $FAB0	
 RESET:                
   LDA #$00                 
-  STA $C000                
-  STA $E000                
-  LDA #$06                 
+  STA MMC3IRQLATCH                
+  STA MMC3IRQDISABLE               
+  LDA #$FF                 
+  STA MMC3MIRROR                
+  LDA #$80  
+  STA MMC3PRGRAMPROTECT
+
+  JSR INIT_CHR_RAM
+
+  LDA #BANKSEL.PRGLO               
   STA MMC3BANKSEL                
   LDA #$1A                 
   STA MMC3BANKDATA               
-  LDA #$07                 
+  LDA #BANKSEL.PGRHI                 
   STA MMC3BANKSEL                
   LDA #$1B                 
   STA MMC3BANKDATA
-  LDA #$FF                 
-  STA $A000                
-  LDA #$80  
-  STA $A001               
-  JMP $C075    
+               
+  JMP $C075  
 
+
+INIT_CHR_RAM:
+  LDA #BANKSEL.PRGLO                 
+	STA MMC3BANKSEL                
+	LDA #30                    
+	STA MMC3BANKDATA               
+	
+  LDA #BANKSEL.PGRHI                 
+	STA MMC3BANKSEL                
+	LDA #31                    
+	STA MMC3BANKDATA               
+	
+  LDA #BANKSEL.CHRHI1                
+	STA MMC3BANKSEL                
+	LDA #0                    
+	STA MMC3BANKDATA 
+ 
+  //backup $0000
+  LDA $00                  
+  PHA                      
+  LDA $01                  
+  PHA                      
   
-
-; MAPPER165FAE0:
-  ; STA $03F8                
-  ; STA PPUADDR         
-  ; RTS          
-; MAPPER165FAF0:
-  ; STA $03F9                
-  ; STA PPUADDR         
-  ; RTS                      
-
-
+  //initialize X and Y
+  LDX #$00                 
+  LDY #$00                 
   
-MMC3_F524:
-  STX $8000                
-  STY $8001                
-  RTS   
+  //Write where font is located on $0000
+  LDA #<FONT_2BPP                 
+  STA $00                  
+  LDA #>FONT_2BPP                
+  STA $01 
+  
+  //LOAD CHR-RAM TO CHRHI1
+  LDX #$00                 
+  LDY BANKSEL.CHRHI1                 
+  STY MMC3BANKSEL                
+  STX MMC3BANKDATA               
+  
+  //SELECT $1FD0
+  LDA #$1F                 
+  STA PPUADDR         
+  LDA #$D0                 
+  STA PPUADDR
 
-.orga $F530
-MAPPER165CHRHI2:            
-  PHA                      
-  TXA                      
-  PHA                      
-  TYA                      
-  PHA                      
-  TSX                      
-  LDA $0103,X              
-  NOP
-  ASL A                    
-  ASL A                    
-  TAY                      
-  LDX #$04                 
-  JSR MMC3_F524               
+  //what
+  LDA PPUDATA         
+  LDA PPUDATA
+
+  //write only 16 font...?         
+  LDX #$10                 
+  LDY #$00  
+
+  //SELECT $1000
+  LDA #$10                 
+  STA PPUADDR         
+  LDA #$00                 
+  STA PPUADDR
+
+//Load font
+LOOP_803A:  
+  LDA ($00), Y              
+  STA PPUDATA         
+  INY                      
+  BNE LOOP_803A                
+  INC $01                  
+  DEX                      
+  BNE LOOP_803A   
+
+  //restore backup
   PLA                      
-  TAY                      
+  STA $01                  
   PLA                      
-  TAX                      
-  PLA                      
+  STA $00                  
+  RTS     
+
+
   RTS  
   
-.orga $F550 
+MMC3_F524:
+  STX MMC3BANKSEL               
+  STY MMC3BANKDATA               
+  RTS   
+
 MAPPER165CHRHI1:            
   PHA                      
   TXA                      
@@ -446,7 +259,7 @@ MAPPER165CHRHI1:
   ASL A                    
   ASL A                    
   TAY                      
-  LDX #$02                 
+  LDX #BANKSEL.CHRHI1                
   JSR MMC3_F524               
   PLA                      
   TAY                      
@@ -454,8 +267,28 @@ MAPPER165CHRHI1:
   TAX                      
   PLA                      
   RTS 
-  
-.orga $F570	
+
+MAPPER165CHRHI2:            
+  PHA                      
+  TXA                      
+  PHA                      
+  TYA                      
+  PHA                      
+  TSX                      
+  LDA $0103,X              
+  NOP
+  ASL A                    
+  ASL A                    
+  TAY                      
+  LDX #BANKSEL.CHRHI2              
+  JSR MMC3_F524               
+  PLA                      
+  TAY                      
+  PLA                      
+  TAX                      
+  PLA                      
+  RTS  
+
 MAPPER165CHRLO1:
   PHA                      
   TXA                      
@@ -468,7 +301,7 @@ MAPPER165CHRLO1:
   ASL A                    
   ASL A                    
   TAY                      
-  LDX #$00                 
+  LDX #BANKSEL.CHRLO1                 
   JSR MMC3_F524                        
   PLA                      
   TAY                      
@@ -489,7 +322,7 @@ MAPPER165CHRLO2:
   ASL A                    
   ASL A                    
   TAY                      
-  LDX #$01                 
+  LDX #BANKSEL.CHRLO2                 
   JSR MMC3_F524                        
   PLA                      
   TAY                      
@@ -504,9 +337,3 @@ MAPPER165CHRLO2:
 
 .orga $FFFC
   .dw RESET
-
-; MAPPER165BANK	f500
-; MAPPER165CHRLO1	f570
-; MAPPER165CHRLO2	xxxx
-; MAPPER165CHRHI1	xxxx
-; MAPPER165CHRHI2	f530
