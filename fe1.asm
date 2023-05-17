@@ -207,14 +207,12 @@ INIT_CHR_RAM:
   STA PPUADDR         
   LDA #$D0                 
   STA PPUADDR
-
-  //what
   LDA PPUDATA         
   LDA PPUDATA
 
-  //write only 16 font...?         
-  LDX #$10                 
-  LDY #$00  
+    
+  LDX #$10//16 cols                 
+  LDY #$00//16 byte *16 tiles  
 
   //SELECT $1000
   LDA #$10                 
@@ -231,6 +229,14 @@ LOOP_803A:
   INC $01                  
   DEX                      
   BNE LOOP_803A   
+
+  //SELECT $1FE0
+  LDA #$1F                 
+  STA PPUADDR         
+  LDA #$E0                 
+  STA PPUADDR
+  LDA PPUDATA         
+  LDA PPUDATA
 
   //restore backup
   PLA                      
