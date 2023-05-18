@@ -53,22 +53,22 @@
     BASE_BANK 13
     BASE_BANK 14
 
-    BASE_BANK 15;expanded area
-    BASE_BANK 16;expanded area
-    BASE_BANK 17;expanded area
-    BASE_BANK 18;expanded area
-    BASE_BANK 19;expanded area
-    BASE_BANK 20;expanded area
-    BASE_BANK 21;expanded area
-    BASE_BANK 22;expanded area
-    BASE_BANK 23;expanded area
-    BASE_BANK 24;expanded area
-    BASE_BANK 25;expanded area
-    BASE_BANK 26;expanded area
-    BASE_BANK 27;expanded area
-    BASE_BANK 28;expanded area
-    BASE_BANK 29;expanded area
-    BASE_BANK 30;expanded area
+    //BASE_BANK 15;expanded area
+    //BASE_BANK 16;expanded area
+    //BASE_BANK 17;expanded area
+    //BASE_BANK 18;expanded area
+    //BASE_BANK 19;expanded area
+    //BASE_BANK 20;expanded area
+    //BASE_BANK 21;expanded area
+    //BASE_BANK 22;expanded area
+    //BASE_BANK 23;expanded area
+    //BASE_BANK 24;expanded area
+    //BASE_BANK 25;expanded area
+    //BASE_BANK 26;expanded area
+    //BASE_BANK 27;expanded area
+    //BASE_BANK 28;expanded area
+    //BASE_BANK 29;expanded area
+    //BASE_BANK 30;expanded area
 
     BASE_BANK 31
 
@@ -119,6 +119,7 @@
   	.orga $8000
 FONT_2BPP:
 	.incbin "font.bin"
+FONT_2BPP_END:
 
 
 	.bank 31 slot "ROM-HI"	
@@ -154,31 +155,21 @@ RESET:
 
   LDA #BANKSEL.PRGLO               
   STA MMC3BANKSEL                
-  LDA #$1A                 
-  STA MMC3BANKDATA               
-  LDA #BANKSEL.PGRHI                 
-  STA MMC3BANKSEL                
-  LDA #$1B                 
-  STA MMC3BANKDATA
-               
+  LDA #13                 
+  JSR MAPPER165BANK
+
   JMP $C075  
 
 
 INIT_CHR_RAM:
   LDA #BANKSEL.PRGLO                 
 	STA MMC3BANKSEL                
-	LDA #30                    
-	STA MMC3BANKDATA               
-	
-  LDA #BANKSEL.PGRHI                 
-	STA MMC3BANKSEL                
-	LDA #31                    
-	STA MMC3BANKDATA               
-	
-  LDA #BANKSEL.CHRHI1                
-	STA MMC3BANKSEL                
+  LDA #15                 
+  JSR MAPPER165BANK             
+            
 	LDA #0                    
-	STA MMC3BANKDATA 
+	JSR MAPPER165CHRHI1     
+	JSR MAPPER165CHRHI2
  
   //backup $0000
   LDA $00                  
@@ -195,14 +186,8 @@ INIT_CHR_RAM:
   STA $00                  
   LDA #>FONT_2BPP                
   STA $01 
-  
-  //LOAD CHR-RAM TO CHRHI1
-  LDX #$00                 
-  LDY BANKSEL.CHRHI1                 
-  STY MMC3BANKSEL                
-  STX MMC3BANKDATA               
-  
-  //SELECT $1FD0
+              
+  //Do something on $1FD0... I don't know
   LDA #$1F                 
   STA PPUADDR         
   LDA #$D0                 
@@ -210,11 +195,11 @@ INIT_CHR_RAM:
   LDA PPUDATA         
   LDA PPUDATA
 
-    
-  LDX #$10//16 cols                 
-  LDY #$00//16 byte *16 tiles  
+  //Size of copy byte
+  LDX #>(FONT_2BPP_END-FONT_2BPP)            
+  LDY #<(FONT_2BPP_END-FONT_2BPP)
 
-  //SELECT $1000
+  //SELECT PPU $1000
   LDA #$10                 
   STA PPUADDR         
   LDA #$00                 
@@ -230,7 +215,7 @@ LOOP_803A:
   DEX                      
   BNE LOOP_803A   
 
-  //SELECT $1FE0
+   //Do something on $1FE0... I don't know
   LDA #$1F                 
   STA PPUADDR         
   LDA #$E0                 
@@ -245,98 +230,63 @@ LOOP_803A:
   STA $00                  
   RTS     
 
-
-  RTS  
-  
-MMC3_F524:
-  STX MMC3BANKSEL               
-  STY MMC3BANKDATA               
-  RTS   
-
-MAPPER165CHRHI1:            
-  PHA                      
-  TXA                      
-  PHA                      
-  TYA                      
-  PHA                      
-  TSX                      
-  LDA $0103,X  
-  NOP  
-  ASL A                    
-  ASL A                    
-  TAY                      
-  LDX #BANKSEL.CHRHI1                
-  JSR MMC3_F524               
-  PLA                      
-  TAY                      
-  PLA                      
-  TAX                      
-  PLA                      
-  RTS 
-
-MAPPER165CHRHI2:            
-  PHA                      
-  TXA                      
-  PHA                      
-  TYA                      
-  PHA                      
-  TSX                      
-  LDA $0103,X              
-  NOP
-  ASL A                    
-  ASL A                    
-  TAY                      
-  LDX #BANKSEL.CHRHI2              
-  JSR MMC3_F524               
-  PLA                      
-  TAY                      
-  PLA                      
-  TAX                      
-  PLA                      
-  RTS  
-
 MAPPER165CHRLO1:
   PHA                      
   TXA                      
   PHA                      
   TYA                      
   PHA                      
-  TSX                      
-  LDA $0103,X              
-  NOP                      
-  ASL A                    
-  ASL A                    
-  TAY                      
-  LDX #BANKSEL.CHRLO1                 
-  JSR MMC3_F524                        
-  PLA                      
-  TAY                      
-  PLA                      
-  TAX                      
-  PLA                      
-  RTS                      
-
+  TSX                           
+  LDA #BANKSEL.CHRLO1                
+  JMP MAPPER165CHR_COMMON1                                       
+           
 MAPPER165CHRLO2:
   PHA                      
   TXA                      
   PHA                      
   TYA                      
   PHA                      
+  TSX                   
+  LDA #BANKSEL.CHRLO2                    
+  JMP MAPPER165CHR_COMMON1     
+
+ MAPPER165CHRHI1:           
+  PHA                      
+  TXA                      
+  PHA                      
+  TYA                      
+  PHA  
   TSX                      
+  LDA #BANKSEL.CHRHI1
+  JMP MAPPER165CHR_COMMON1                                       
+                                  
+MAPPER165CHRHI2:            
+  PHA                      
+  TXA                      
+  PHA                      
+  TYA                      
+  PHA  
+  TSX                                
+  LDA #BANKSEL.CHRHI2            
+  JMP MAPPER165CHR_COMMON1                                        
+                              
+MAPPER165CHR_COMMON1:   
+  PHA           
   LDA $0103,X              
   NOP                      
   ASL A                    
   ASL A                    
-  TAY                      
-  LDX #BANKSEL.CHRLO2                 
-  JSR MMC3_F524                        
+  TAY
+  PLA
+  TAX   
+  STX MMC3BANKSEL               
+  STY MMC3BANKDATA  
   PLA                      
   TAY                      
   PLA                      
   TAX                      
   PLA                      
   RTS  
-
 
                     
 
