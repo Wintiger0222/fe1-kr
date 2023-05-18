@@ -133,7 +133,7 @@ MAPPER165BANK:
 	PLA                      
 	STA MMC3BANKDATA               
 	PHA                      
-	LDA #BANKSEL.PGRHI                 
+	LDA #BANKSEL.PRGHI                 
 	STA MMC3BANKSEL                
 	PLA                      
 	CLC                      
