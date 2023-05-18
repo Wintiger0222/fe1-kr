@@ -152,18 +152,14 @@ RESET:
   STA MMC3PRGRAMPROTECT
 
   JSR INIT_CHR_RAM
-
-  LDA #BANKSEL.PRGLO               
-  STA MMC3BANKSEL                
+               
   LDA #13                 
   JSR MAPPER165BANK
 
   JMP $C075  
 
 
-INIT_CHR_RAM:
-  LDA #BANKSEL.PRGLO                 
-	STA MMC3BANKSEL                
+INIT_CHR_RAM:              
   LDA #15                 
   JSR MAPPER165BANK             
             
